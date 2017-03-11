@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+        <h:form id="RecipeViewForm" class="ui-datatable-data">
+            <p:dialog id="RecipeViewDlg" widgetVar="RecipeViewDialog" modal="true" 
+                      resizable="false" appendTo="@(body)" style="text-align: center;"
+                      header="#{bundle.ViewRecipeTitle}">
+                
+                <h:panelGroup>
+                    <div>
+                        <a href="#{recipeController.selected.sourceUrl}" target="_blank">
+                            <p:graphicImage class="displayImage" value="#{recipeController.selected.imageUrl}" 
+                                            style="width: 300px; height: auto;"/>
+                        </a>
+                    </div>
+                </h:panelGroup>
+                
+                <h:panelGroup>
+                    <p:spacer height="10"/>
+                    <div>
+                        <i><h:outputText value="#{bundle.ViewRecipeLabel_title}"/></i><br/>
+                        <strong><h:outputText value="#{recipeController.selected.title}"/></strong>
+                    </div>
+                    
+                    <p:spacer height="10"/>
+                    
+                    <div>
+                        <i><h:outputText value="#{bundle.ViewRecipeLabel_sourceName}"/></i><br/>
+                        <a href="#{recipeController.selected.sourceUrl}" target="_blank">
+                            <strong><h:outputText value="#{recipeController.selected.sourceName}"/></strong>
+                        </a>
+                    </div>
+                </h:panelGroup>
+                
+                <h:panelGroup>
+                    <p:spacer height="10"/>
+                    <div align="center">
+                        <!-- CLOSE button -->
+                        <p:commandButton value="#{bundle.Close}" onclick="PF('RecipeViewDialog').hide()" 
+                                         styleClass="commandButton" icon="ui-icon-close"/>
+                    </div>
+                    <p:spacer height="20"/>
+                </h:panelGroup>
+            
+            </p:dialog>
+        </h:form>
+    </ui:composition>
+</html>

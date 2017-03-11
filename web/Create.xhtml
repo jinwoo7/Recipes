@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecipeCreateDlg" widgetVar="RecipeCreateDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="#{bundle.CreateRecipeTitle}">
+            <h:form id="RecipeCreateForm" class="ui-datatable-data">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="columnOne, columnTwo"
+                                 rendered="#{recipeController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateRecipeLabel_title}" for="title" style="text-align: right;"/>
+                        <p:inputText id="title" class="dataFields" value="#{recipeController.selected.title}" 
+                                     title="#{bundle.CreateRecipeTitle_title}" required="true" style="width: 600px;"
+                                     requiredMessage="#{bundle.CreateRecipeRequiredMessage_title}"/>
+                        <p:outputLabel value="#{bundle.CreateRecipeLabel_imageUrl}" for="imageUrl" style="text-align: right;"/>
+                        <p:inputText id="imageUrl" class="dataFields" value="#{recipeController.selected.imageUrl}" 
+                                     title="#{bundle.CreateRecipeTitle_imageUrl}" required="true" style="width: 600px;"
+                                     requiredMessage="#{bundle.CreateRecipeRequiredMessage_imageUrl}"/>
+                        <p:outputLabel value="#{bundle.CreateRecipeLabel_sourceName}" for="sourceName" style="text-align: right;"/>
+                        <p:inputText id="sourceName" class="dataFields" value="#{recipeController.selected.sourceName}" 
+                                     title="#{bundle.CreateRecipeTitle_sourceName}" required="true" style="width: 600px;"
+                                     requiredMessage="#{bundle.CreateRecipeRequiredMessage_sourceName}"/>
+                        <p:outputLabel value="#{bundle.CreateRecipeLabel_sourceUrl}" for="sourceUrl" style="text-align: right;"/>
+                        <p:inputText id="sourceUrl" class="dataFields" value="#{recipeController.selected.sourceUrl}" 
+                                     title="#{bundle.CreateRecipeTitle_sourceUrl}" required="true"  style="width: 600px;"
+                                     requiredMessage="#{bundle.CreateRecipeRequiredMessage_sourceUrl}"/>
+                    </p:panelGrid>
+                </h:panelGroup>
+                <h:panelGroup>
+                    <p:spacer height="10"/>
+                    <div align="center">
+                        <!-- CREATE button -->
+                        <p:commandButton actionListener="#{countryController.create}" value="#{bundle.Create}" 
+                                         styleClass="commandButton" icon="ui-icon-plus" ajax="false"
+                                         update="display,:RecipeListForm:datalist,:growl" 
+                                         oncomplete="handleSubmit(args,'RecipeCreateDialog');" />
+                        &nbsp;
+                        <!-- CANCEL button -->
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('RecipeCreateDialog').hide()" 
+                                         styleClass="commandButton" icon="ui-icon-cancel"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Jinwoo Yom on 2017.02.17 
+Copyright © 2017 Jinwoo Yom. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <ui:composition>
+            <!-- 
+            ==========================================================
+            |  Clicking the INFO button displays this Dialog window  |
+            |  to show the Details of the Selected Searched Recipe.   |
+            ==========================================================
+            -->
+            <h:form id="searchedRecipeDetailsForm" class="ui-datatable-data">
+                <p:dialog position="center center" id="searchedRecipeDetailsDlg" 
+                          widgetVar="searchedRecipeDetailsDialog" 
+                          modal="true" resizable="false" appendTo="@(body)" 
+                          header="#{bundle.RecipeDetail_title}" width="550px"
+                          showEffect="Slide-Left-to-Right" hideEffect="explode">
+                    
+
+                    <!--
+                    There are various effect options to be used when displaying and closing the dialog. 
+                    Use showEffect and hideEffect options to apply these effects:
+                        blind, bounce, clip, drop, explode, fade, fold, highlight, puff, 
+                        pulsate, scale, shake, size, slide and transfer. [PrimeFaces user Guide]
+                    -->
+
+
+                        <p:scrollPanel mode="native" style="text-align:center; align-content: center; border:none;
+                                       width: content-box; height:500px; background-color: #FDF5E6;">
+                            <div>
+                                <a href="${SearchedRecipeController.selected.sourceURL}" target="_blank">
+                                    <p:graphicImage class="displayImage" value="${SearchedRecipeController.selected.imageURL}" 
+                                                    style="width: 300px; height: auto;"/>
+                                </a>
+                            </div>
+                            <p:spacer height="10"/>
+                            <div>
+                                <h:outputText value="#{SearchedRecipeController.selected.getLabel()}" 
+                                              style="color: darkgreen; font-size: large; font-weight: bold;"/>
+                            </div>
+                            <p:spacer height="10"/>
+                            <div style="margin: auto; width: 500px">
+                                <table border="3" align="center" cellpadding="10" cellspacing="0">
+                                    <tr style="background: lightgray"><td style="text-align: center;">
+                                        <h:outputText value="#{bundle.RecipeDetail_sourceName}"/>
+                                    </td></tr>
+                                    <tr style="background: white"><td style="text-align: center;">
+                                        <h:outputText value="#{SearchedRecipeController.selected.getSourceName()}"/>
+                                    </td></tr>
+
+                                    <tr style="background: lightgray"><td style="text-align: center;">
+                                        <h:outputText value="#{bundle.RecipeDetail_dietLabels}"/>
+                                    </td></tr>
+                                    <tr style="background: white"><td style="text-align: center;">
+                                        <h:outputText value="#{SearchedRecipeController.selected.getDietLabels()}"/>
+                                    </td></tr>
+
+                                    <tr style="background: lightgray"><td style="text-align: center;">
+                                        <h:outputText value="#{bundle.RecipeDetail_healthLabels}"/>
+                                    </td></tr>
+                                    <tr style="background: white"><td style="text-align: center;">
+                                        <h:outputText value="#{SearchedRecipeController.selected.getHealthLabels()}"/>
+                                    </td></tr>
+
+                                    <tr style="background: lightgray"><td style="text-align: center;">
+                                        <h:outputText value="#{bundle.RecipeDetail_ingredientLines}"/>
+                                    </td></tr>
+                                    <tr style="background: white"><td style="text-align: center;">
+                                        <h:outputText value="#{SearchedRecipeController.selected.getIngredientLines()}"/>
+                                    </td></tr>
+
+                                    <tr style="background: lightgray"><td style="text-align: center;">
+                                        <h:outputText value="#{bundle.RecipeDetail_calories}"/>
+                                    </td></tr>
+                                    <tr style="background: white"><td style="text-align: center;">
+                                        <h:outputText value="#{SearchedRecipeController.selected.getCalories()}"/>
+                                    </td></tr>
+                                </table>
+                            </div>
+
+
+                            <h:panelGroup>
+                                <p:spacer height="10"/>
+                                <div align="center">
+                                    <!-- CLOSE button -->
+                                    <p:commandButton value="#{bundle.Close}" onclick="PF('searchedRecipeDetailsDialog').hide()" 
+                                                     styleClass="commandButton" icon="ui-icon-close"/>
+                                </div>
+                                <p:spacer height="20"/>
+                            </h:panelGroup>
+                    </p:scrollPanel>
+                </p:dialog>
+            </h:form>
+        </ui:composition>
+    </body>
+</html>

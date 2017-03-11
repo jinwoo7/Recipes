@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        
+        <ui:define name="title">
+            <!-- Set the page title -->
+            <h:outputText value="#{bundle.ListRecipeTitle}"></h:outputText>
+        </ui:define>
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+            
+            <div align="center" style="width:97%">
+                <!--
+                PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
+                The location of growl in a JSF page does not matter since the messages are displayed
+                as an overlay. The life attribute defines how long the message will be displayed in 
+                milliseconds after which it will fade away. 4000 milliseconds = 4 seconds
+                -->
+                <p:growl id="growl" life="4000" />
+            
+                <h:form id="RecipeListForm">
+                    <p:panel header="#{bundle.ListRecipeTitle}">
+                        <p:dataTable id="datalist" value="#{recipeController.items}" var="item"
+                                     selectionMode="single" selection="#{recipeController.selected}"
+                                     paginator="true"
+                                     rowKey="#{item.id}"
+                                     rows="10"
+                                     rowsPerPageTemplate="10,20,30,40,50"
+                                     >
+
+                            <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                            <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                            <p:column style="text-align: center; width: 60px;">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecipeTitle_Photo}"/>
+                                </f:facet>
+                                <h:graphicImage class="displayImage" value="#{item.imageUrl}" style="width: 40px; height: auto"/>
+                            </p:column>
+                            <p:column sortBy="#{item.title}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecipeTitle_title}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.title}"/>
+                            </p:column>
+                            <p:column sortBy="#{item.sourceName}">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListRecipeTitle_sourceName}"/>
+                                </f:facet>
+                                <a href="#{item.sourceUrl}" target="_blank"><h:outputText value="#{item.sourceName}"/></a>
+                            </p:column>
+
+                            <f:facet name="footer">
+                                <p:commandButton id="createButton" icon="ui-icon-plus"   
+                                                 value="#{bundle.Create}" actionListener="#{recipeController.prepareCreate}" 
+                                                 update=":RecipeCreateForm" oncomplete="PF('RecipeCreateDialog').show()"/>
+                                <p:commandButton id="viewButton"   icon="ui-icon-search" 
+                                                 value="#{bundle.View}" update=":RecipeViewForm" 
+                                                 oncomplete="PF('RecipeViewDialog').show()" 
+                                                 disabled="#{empty recipeController.selected}"/>
+                                <p:commandButton id="editButton"   icon="ui-icon-pencil" 
+                                                 value="#{bundle.Edit}" update=":RecipeEditForm" 
+                                                 oncomplete="PF('RecipeEditDialog').show()" 
+                                                 disabled="#{empty recipeController.selected}"/>
+                                
+                                <!-- **********************************************
+                                Display a Confirmation dialog for the DELETE button
+                                *********************************************** -->
+                                <p:commandButton id="deleteButton" icon="ui-icon-trash"  
+                                                 value="#{bundle.Delete}" actionListener="#{recipeController.destroy}" 
+                                                 update=":growl,datalist" disabled="#{empty recipeController.selected}">
+
+                                    <p:confirm header="Confirmation" 
+                                               message="Are you sure you want to permanently delete the selected recipe from the database?" 
+                                               icon="ui-icon-alert" />
+                                </p:commandButton>
+                                
+                                <p:confirmDialog id="confirmDialogBox" global="true" showEffect="fade" hideEffect="fade">
+                                    <div align="center">
+                                        <!-- The value of the first button listed below will be shown as 
+                                        highlighted (default action) when displayed -->
+                                        <p:commandButton value="No" type="button" 
+                                                         styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                                        &nbsp;
+                                        <p:commandButton value="Yes" type="button" 
+                                                         styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                    </div>
+                                </p:confirmDialog>
+                                <!-- **********************************************
+                                End of Display of the DELETE Confirmation dialog 
+                                *********************************************** -->    
+                            </f:facet>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+            </div>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

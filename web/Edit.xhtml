@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="RecipeEditDlg" widgetVar="RecipeEditDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="#{bundle.EditRecipeTitle}">
+            <h:form id="RecipeEditForm" class="ui-datatable-data">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" columnClasses="columnOne, columnTwo" 
+                                 rendered="#{recipeController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditRecipeLabel_title}" for="title" style="text-align: right;"/>
+                        <p:inputText id="title" value="#{recipeController.selected.title}" style="width: 600px;"
+                                     title="#{bundle.EditRecipeTitle_title}" required="true" 
+                                     requiredMessage="#{bundle.EditRecipeRequiredMessage_title}"/>
+                        <p:outputLabel value="#{bundle.EditRecipeLabel_imageUrl}" for="imageUrl" style="text-align: right;"/>
+                        <p:inputText id="imageUrl" value="#{recipeController.selected.imageUrl}" style="width: 600px;"
+                                     title="#{bundle.EditRecipeTitle_imageUrl}" required="true" 
+                                     requiredMessage="#{bundle.EditRecipeRequiredMessage_imageUrl}"/>
+                        <p:outputLabel value="#{bundle.EditRecipeLabel_sourceName}" for="sourceName" style="text-align: right;"/>
+                        <p:inputText id="sourceName" value="#{recipeController.selected.sourceName}" style="width: 600px;"
+                                     title="#{bundle.EditRecipeTitle_sourceName}" required="true" 
+                                     requiredMessage="#{bundle.EditRecipeRequiredMessage_sourceName}"/>
+                        <p:outputLabel value="#{bundle.EditRecipeLabel_sourceUrl}" for="sourceUrl" style="text-align: right;"/>
+                        <p:inputText id="sourceUrl" value="#{recipeController.selected.sourceUrl}" style="width: 600px;"
+                                     title="#{bundle.EditRecipeTitle_sourceUrl}" required="true" 
+                                     requiredMessage="#{bundle.EditRecipeRequiredMessage_sourceUrl}"/>
+                    </p:panelGrid>
+                    </h:panelGroup>
+                <h:panelGroup>
+                    <p:spacer height="10"/>
+                    <div align="center">
+                        <!-- SAVE button -->
+                        <p:commandButton actionListener="#{recipeController.create}" value="#{bundle.Save}" 
+                                         styleClass="commandButton" icon="ui-icon-disk" ajax="false"
+                                         update="display,:RecipeListForm:datalist,:growl" 
+                                         oncomplete="handleSubmit(args,'RecipeCreateDialog');" />
+                        &nbsp;
+                        <!-- CANCEL button -->
+                        <p:commandButton value="#{bundle.Cancel}" onclick="PF('RecipeEditDialog').hide()" 
+                                         styleClass="commandButton" icon="ui-icon-cancel"/>
+                    </div>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

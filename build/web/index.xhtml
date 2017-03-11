@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!--
+Created by Jinwoo Yom on 2017.02.28 
+Copyright © 2017 Jinwoo Yom. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <!-- Do not enter tags before the composition line since they are ignored by JSF -->
+
+    <!-- This page is constructed based on the siteTemplate -->
+    <ui:composition template="/template/siteTemplate.xhtml">
+
+        <!-- Create the content for this page below -->
+        <ui:define name="editableContent">
+
+            <!-- 
+            =================================================================================
+            This Image Slider is adapted from http://www.menucool.com/javascript-image-slider 
+            It uses the following files:
+                - js-image-slider.css
+                - js-image-slider.js
+                - bullet.png
+
+            The following references are included in the siteTemplate.xhtml file:
+                <h:outputStylesheet library="css" name="js-image-slider.css" />
+                <script src="resources/js/js-image-slider.js" type="text/javascript"></script>
+            =================================================================================
+            -->
+
+            <div id="sliderFrame">
+                <div id="slider">
+                    <!--
+                    Image captions are provided by the "alt" values and are displayed on gray background.
+                    -->
+                    
+                    <!-- Approach 1: Just display the image and its caption (alt value) -->
+                    <img src="resources/images/imageSliderPhotos/photo1.png" alt="#captionForPhoto1" />
+                    <img src="resources/images/imageSliderPhotos/photo2.png" alt="#captionForPhoto2" />
+                    <img src="resources/images/imageSliderPhotos/photo3.png" alt="#captionForPhoto3" />
+                    <img src="resources/images/imageSliderPhotos/photo4.png" alt="#captionForPhoto4" />
+                    <img src="resources/images/imageSliderPhotos/photo5.png" alt="#captionForPhoto5" />
+                    <img src="resources/images/imageSliderPhotos/photo6.png" alt="#captionForPhoto6" />
+                    <img src="resources/images/imageSliderPhotos/photo7.png" alt="#captionForPhoto7" />
+                    <img src="resources/images/imageSliderPhotos/photo8.png" alt="#captionForPhoto8" />
+                    <img src="resources/images/imageSliderPhotos/photo9.png" alt="#captionForPhoto9" />
+                    <img src="resources/images/imageSliderPhotos/photo10.png" alt="#captionForPhoto10" />
+                    <img src="resources/images/imageSliderPhotos/photo11.png" alt="#captionForPhoto11" />
+                    <img src="resources/images/imageSliderPhotos/photo12.png" alt="#captionForPhoto12" />
+                </div>
+
+                <!--
+                display: none; is commonly used with JavaScript to hide and show elements
+                without deleting and recreating them. [http://www.w3schools.com/]
+                -->
+                <!-- Do not show this div when this page is rendered -->
+                <div id="captionForPhoto1" style="display: none;">
+                    <a href="http://www.seriouseats.com/recipes/2017/02/roasted-beet-pistachio-ricotta-grapefruit-citrus-salad-recipe.html" target="_blank">Roasted Beet and Citrus Salad With Ricotta and Pistachio Vinaigrette</a>
+                </div>
+
+                <div id="captionForPhoto2" style="display: none;">
+                    <a href="http://www.mccormick.com/recipes/main-dishes/recipe-inspirations-shrimp-and-pasta-primavera" target="_blank">Shrimp and Pasta Primavera</a>
+                </div>
+                
+                <div id="captionForPhoto3" style="display: none;">
+                    <a href="http://www.saveur.com/vanilla-cake-recipe" target="_blank">Vanilla Cake</a>
+                </div>
+                
+                <div id="captionForPhoto4" style="display: none;">
+                    <a href="http://www.bhg.com/recipe/chicken/chicken-with-sourdough-mushroom-stuffing/" target="_blank">Chicken with Sourdough-Mushroom Stuffing</a>
+                </div>
+                
+                <div id="captionForPhoto5" style="display: none;">
+                    <a href="http://www.seriouseats.com/recipes/2016/09/the-best-minestrone-soup-recipe.html" target="_blank">The Best Minestrone Soup Recipe</a>
+                </div>
+                
+                <div id="captionForPhoto6" style="display: none;">
+                    <a href="http://www.saveur.com/almond-cardamom-baklava-recipe" target="_blank">Almond-Cardamom Baklava</a>
+                </div>
+
+                <div id="captionForPhoto7" style="display: none;">
+                    <a href="http://www.mccormick.com/recipes/main-dishes/lemon-pepper-dill-tilapia" target="_blank">Lemon Pepper Dill Tilapia</a>
+                </div>
+                
+                <div id="captionForPhoto8" style="display: none;">
+                    <a href="http://www.bettycrocker.com/recipes/pumpkin-pecan-cheesecake-cookie-bars/2cb33276-4b67-49b3-b8ab-486174605c0e" target="_blank">Pumpkin Pecan Cheesecake Cookie Bars</a>
+                </div>
+                
+                <div id="captionForPhoto9" style="display: none;">
+                    <a href="http://www.hellmanns.com/recipes/detail/32658/1/parmesan-crusted-chicken" target="_blank">Parmesan Crusted Chicken</a>
+                </div>
+                
+                <div id="captionForPhoto10" style="display: none;">
+                    <a href="http://www.saveur.com/mint-chocolate-ice-cream-sandwich" target="_blank">Mint Chocolate Ice Cream Sandwich</a>
+                </div>
+                
+                <div id="captionForPhoto11" style="display: none;">
+                    <a href="http://www.seriouseats.com/recipes/2016/11/red-cabbage-salad-roasted-cipollini-onions-recipe.html" target="_blank">Red Cabbage Salad with Roasted Cipollini Onions</a>
+                </div>
+                
+                <div id="captionForPhoto12" style="display: none;">
+                    <a href="http://www.bhg.com/recipe/chicken/buffalo-chicken-drumsticks-with-blue-cheese-dip/" target="_blank">Buffalo Chicken Drumsticks with Blue Cheese Dip</a>
+                </div>
+
+            </div>
+            <br /><br />
+
+        </ui:define>
+
+    </ui:composition>
+    <!-- Do not enter tags after the composition line since they are ignored by JSF -->
+
+</html>

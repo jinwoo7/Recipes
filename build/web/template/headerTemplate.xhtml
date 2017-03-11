@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Created by Jinwoo Yom on 2016.2.8 
+Copyright © 2016 Jinwoo Yom. All rights reserved.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!--
+    *********************************************
+    * Header Component of Template siteTemplate *
+    *********************************************
+    This page's content is displayed on the top of each page created based on the siteTemplate.
+    Changes made in this file will show up automatically with all pages created based on the
+    siteTemplate for the entire site, achieving great maintainability.
+    -->
+
+    <!-- Do not enter tags *before* the composition line since they are ignored by JSF -->
+    <ui:composition>
+        <h:form>
+            <h:panelGrid columns="2" columnClasses="leftTopCornerAlign, rightTopCornerAlign">
+                <!-- Use absolute path for the image file since it will be accessed from all pages -->
+                <h:link outcome="index"><img src="resources/images/recipesLogo.png"
+                                             style="width:100%; height:100%; max-height:64px; max-width:168px; border: none"
+                                             alt="Recipes Logo" />
+                </h:link>
+
+                <h:panelGroup>
+                    <!-- 
+                    With the i tag, you can access an icon given at http://fontawesome.io/icons/ by using
+                    its class name. For this to work, the following must be specified in the siteTemplate file:
+                    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" />
+                    -->
+                    <h:link outcome="index"><i class="fa fa-home"></i>&nbsp;Home&nbsp;&nbsp;</h:link>
+                    <h:link outcome="List"><i class="fa fa-database"></i>&nbsp;Recipes I Like&nbsp;&nbsp;</h:link>
+                    
+                    <i class="fa fa-search"></i>
+                        &nbsp;<p:commandLink value="Recipe Search" styleClass="arialTen" 
+                                       oncomplete="PF('RecipeSearchDialog').show()" />&nbsp;&nbsp;
+                    
+                </h:panelGroup>
+            </h:panelGrid>
+        </h:form>
+        <!-- 
+        ====================================================================
+        |  Clicking the MOVIE SEARCH link displays this Dialog window for  |
+        |  the user to enter a search query and click the Search button.   |
+        ====================================================================
+        -->
+        <p:dialog id="RecipeSearchDialog" widgetVar="RecipeSearchDialog" modal="true" 
+                  resizable="false" appendTo="@(body)" header="#{bundle.SearchRecipeTitle}" 
+                  position="center center" style="width: 500px;">
+            <h:form id="searchDialogForm">
+                <div align="center" bgcolor="#FDF5E6" >
+                    <div>
+                        <table border="0" align="center" cellpadding="10" cellspacing="0">
+                            <!-- Search -->
+                            <tr>
+                                <td>
+                                   <p:outputLabel value="#{bundle.SearchRecipeLabel_Search}" for="search" style="text-align: left;"/> 
+                                </td>
+                                <td style="text-align: right;">
+                                    <p:inputText id="search" value="#{SearchedRecipeController.searchText}" style="width: 200px;"
+                                         title="#{bundle.SearchRecipeTitle_Search}" placeholder="Enter search string" required="true"
+                                         requiredMessage="#{bundle.RequiredMessage_search}">
+                                    </p:inputText>
+                                </td>
+                            </tr>
+                            <!-- Diet Label -->
+                            <tr>
+                                <td>
+                                   <p:outputLabel value="#{bundle.SearchRecipeLabel_DietLabel}" for="dietLabel" style="text-align: left;"/>
+                                </td>
+                                <td style="text-align: right;">
+                                    <p:selectOneMenu id="dietLabel" value="#{SearchedRecipeController.dietLabel}" required="true"
+                                                    requiredMessage="#{bundle.RequiredMessage_dietLabel}" style="text-align: right;">
+                                        <f:selectItem itemLabel="Select Health Label" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Balanced" itemValue="balanced" />
+                                        <f:selectItem itemLabel="High-Fiber" itemValue="high-fiber" />
+                                        <f:selectItem itemLabel="High-Protein" itemValue="high-protein" />
+                                        <f:selectItem itemLabel="Low-Carb" itemValue="low-carb" />
+                                        <f:selectItem itemLabel="Low-Fat" itemValue="low-fat" />
+                                        <f:selectItem itemLabel="Low-Sodium" itemValue="low-sodium" />
+                                   </p:selectOneMenu> 
+                                </td>
+                            </tr>
+                            <!-- Health Label -->
+                            <tr>
+                                <td>
+                                    <p:outputLabel value="#{bundle.SearchRecipeLabel_HealthLabel}" for="healthLabel" style="text-align: left;"/>
+                                </td>
+                                <td style="text-align: right;">
+                                    <p:selectOneMenu id="healthLabel" value="#{SearchedRecipeController.healthLabel}" required="true"
+                                                    requiredMessage="#{bundle.RequiredMessage_healthLabel}" style="text-align: right;">
+                                        <f:selectItem itemLabel="Select Diet Label" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Dairy-Free" itemValue="dairy-free" />
+                                        <f:selectItem itemLabel="Egg-Free" itemValue="egg-gree" />
+                                        <f:selectItem itemLabel="Fat-Free" itemValue="fat-free" />
+                                        <f:selectItem itemLabel="Fish-Free" itemValue="Fish-Free" />
+                                        <f:selectItem itemLabel="Gluten-Free" itemValue="gluten-free" />
+                                        <f:selectItem itemLabel="Low-Sugar" itemValue="low-sugar" />
+                                        <f:selectItem itemLabel="Paleo" itemValue="paleo" />
+                                        <f:selectItem itemLabel="Peanut-Free" itemValue="peanut-free" />
+                                        <f:selectItem itemLabel="Shellfish-Free" itemValue="shellfish-free" />
+                                        <f:selectItem itemLabel="Soy-Free" itemValue="soy-free" />
+                                        <f:selectItem itemLabel="Tree-Nut-Free" itemValue="tree-nut-free" />
+                                        <f:selectItem itemLabel="Vegan" itemValue="vegan" />
+                                        <f:selectItem itemLabel="Vegetarian" itemValue="vegetarian" />
+                                        <f:selectItem itemLabel="Wheat-Free" itemValue="wheat-free" />
+                                   </p:selectOneMenu>
+                                </td>
+                            </tr>
+                            <!-- Number of Recipes -->
+                            <tr>
+                                <td>
+                                   <p:outputLabel value="#{bundle.SearchRecipeLabel_MaxNumber}" for="maxNumber" style="text-align: left;"/> 
+                                </td>
+                                <td style="text-align: right;">
+                                    <p:selectOneMenu id="maxNumber" value="#{SearchedRecipeController.maxNumber}" required="true"
+                                                    validatorMessage="#{bundle.RequiredMessage_maxNumber}" style="text-align: right;">
+                                        <f:selectItem itemLabel="Select Number" itemValue="0" />
+                                        <f:selectItem itemLabel="10" itemValue="10" />
+                                        <f:selectItem itemLabel="20" itemValue="20" />
+                                        <f:selectItem itemLabel="30" itemValue="30" />
+                                        <f:selectItem itemLabel="40" itemValue="40" />
+                                        <f:selectItem itemLabel="50" itemValue="50" />
+                                        <f:validateDoubleRange minimum="10" maximum="50"></f:validateDoubleRange>
+                                    </p:selectOneMenu>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <!-- All error messages will be displayed here styled with CSS style "errorMessages" -->
+                    <h:messages styleClass="errorMessages" style="text-align: left"> </h:messages>
+                    
+                    <p:spacer height="20"/>
+                    
+                    <div>
+                        <!-- SEARCH button -->
+                        <p:commandButton value="Search" id="searchButton" ajax="false"
+                                        styleClass="commandButton" icon="ui-icon-search"
+                                        action="#{SearchedRecipeController.performSearch()}"/>
+                        
+                       &nbsp;&nbsp;
+                       <!-- CLEAR button -->
+                       <p:commandButton id="clear" value="Clear" immediate="true"
+                                     styleClass="commandButton" icon="ui-icon-refresh"
+                                     action="#{SearchedRecipeController.clearSearchFields()}">
+                           <f:ajax render=":searchDialogForm"/>
+                       </p:commandButton>
+                       
+                       &nbsp;&nbsp;
+                       <!-- CANCEL button -->
+                       <p:commandButton value="#{bundle.Cancel}" onclick="PF('RecipeSearchDialog').hide()" 
+                                        action="#{SearchedRecipeController.clearSearchFields()}"
+                                        styleClass="commandButton" icon="ui-icon-cancel" immediate="true">
+                           <f:ajax render=":searchDialogForm"/>
+                       </p:commandButton>
+                       <br /><br />
+                    </div>
+                    
+                </div>
+            </h:form>
+        </p:dialog>
+    </ui:composition>
+        
+    <!-- Do not enter tags *after* the composition line since they are ignored by JSF -->
+
+</html>

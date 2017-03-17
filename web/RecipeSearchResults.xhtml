@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-Created by Jinwoo Yom on 2017.02.17 
+Created by Jinwoo Yom on 2017.02.28 
 Copyright © 2017 Jinwoo Yom. All rights reserved.
 -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
@@ -24,18 +24,17 @@ Copyright © 2017 Jinwoo Yom. All rights reserved.
         <ui:define name="editableContent">
 
             <div align="center" style="width:97%" bgcolor="#FDF5E6" >
+                <!-- Error messages will be shown here if any  -->
+                <h:outputLabel value="#{SearchedRecipeController.getStatusMessage()}"/>
+                <p:messages id="messages" showIcon="false" severity="info"/>
                 <!--
                 PrimeFaces Growl displays messages in an overlay. Place p:growl anywhere on your JSF page. 
                 The location of growl in a JSF page does not matter since the messages are displayed
                 as an overlay. The life attribute defines how long the message will be displayed in 
-                milliseconds after which it will fade away. 4000 milliseconds = 4 seconds
+                milliseconds after which it will fade away. 5000 milliseconds = 5 seconds
                 -->
-                <p:growl id="growl" life="4000" />
+                <p:growl id="message" life="5000" />
                 
-                <!-- Error messages will be shown here if any  -->
-                <p:messages id="msgs" styleClass="errorMessages" showIcon="true"/>
-                <h:outputLabel id="form-error-message" class="errorMessages" value="#{searchedMovieController.statusMessage}"/>
-
                 <h:form id="SearchedRecipeForm">
                     <!--
                     Read about p:dataGrid in the PrimeFaces User Guide and learn about it:

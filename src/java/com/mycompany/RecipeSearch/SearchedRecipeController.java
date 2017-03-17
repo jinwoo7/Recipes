@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Created by Jinwoo Yom on 2017.03.09  * 
+ * Copyright © 2017 Jinwoo Yom. All rights reserved. * 
  */
 package com.mycompany.RecipeSearch;
 
@@ -14,6 +13,8 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import org.primefaces.json.JSONArray;
 import org.primefaces.json.JSONObject;
@@ -27,7 +28,7 @@ import org.primefaces.json.JSONObject;
 public class SearchedRecipeController implements Serializable {
     
     private final String edamamSearchRecipeBaseUrl  = "https://api.edamam.com/search";
-    private final String edamamAppID = "app_id=fc155123";
+    private final String edamamAppID = "appid=fc155123";
     private final String edamamAppKey = "app_key=b34fb9844e7e7ae8ed230dd708fae7d9";
     
     /* The values of these private properties are supplied by the user */
@@ -39,6 +40,7 @@ public class SearchedRecipeController implements Serializable {
     private List<SearchedRecipe> searchedRecipes;
     private SearchedRecipe selected;
     private String statusMessage;
+    private FacesMessage resultMsg;
 
     /**
      * Creates a new instance of searchedRecipeController
@@ -257,11 +259,20 @@ public class SearchedRecipeController implements Serializable {
                      */
                     //Thread.sleep(500);    // 1000 milliseconds = 1 second
                 }
-
+                // check to see if this list is empty
+                if (searchedRecipes.isEmpty()) {
+                    throw new NullPointerException();
+                }
             } else {
                 // Take no action since there are no search results at this page number
+                throw new NullPointerException();
             }
 
+        } catch (NullPointerException ex) {
+            statusMessage = "No recipe found for the search query!";
+            resultMsg = new FacesMessage(FacesMessage.SEVERITY_INFO,statusMessage, statusMessage);
+            
+            Logger.getLogger(SearchedRecipeController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
             statusMessage = "Something went wrong during the query";
             Logger.getLogger(SearchedRecipeController.class.getName()).log(Level.SEVERE, null, ex);
@@ -392,5 +403,10 @@ public class SearchedRecipeController implements Serializable {
 
     public void setSelected(SearchedRecipe selected) {
         this.selected = selected;
+    }
+    
+    public String getStatusMessage() {
+        FacesContext.getCurrentInstance().addMessage(null, resultMsg);
+        return "";
     }
 }
